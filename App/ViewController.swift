@@ -41,7 +41,9 @@ class ViewController: UIViewController {
         
         updateViewFromModel()
     }
-    var emojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵"]
+    var firstThemeEmojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵", "☘️", "🍀", "🗿","🕸", "🍁", "🌼"]
+    var emojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵", "☘️", "🍀", "🗿","🕸", "🍁", "🌼"]
+    
     var emoji = Dictionary<Int, String>()
     func getEmoji(for card: Card)-> String
     {
@@ -89,7 +91,7 @@ class ViewController: UIViewController {
     
     @IBAction func startNewGame() {//доделать с настройками потом
          game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2)
-         emojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵"]
+         emojis = firstThemeEmojis
          emoji = [Int:String]()
          flipCount = 0
          updateViewFromModel()
