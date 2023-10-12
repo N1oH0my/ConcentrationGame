@@ -87,7 +87,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func startNewGame() {
+    @IBAction func startNewGame() {//доделать с настройками потом
          game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2)
          emojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵"]
          emoji = [Int:String]()
