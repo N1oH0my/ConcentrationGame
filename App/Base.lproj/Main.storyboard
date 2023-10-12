@@ -47,7 +47,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Flips: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xi6-KD-BBo">
-                                <rect key="frame" x="81" y="547" width="252" height="36"/>
+                                <rect key="frame" x="142" y="649" width="252" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -64,26 +64,8 @@
                                     <action selector="touchSomeCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="L5c-XW-SPI"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Score" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDe-r6-Gyt">
-                                <rect key="frame" x="37" y="78" width="270" height="42"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vKL-4q-P54">
-                                <rect key="frame" x="233" y="623" width="151" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="New game">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="startNewGame" destination="BYZ-38-t0r" eventType="touchUpInside" id="Isr-VD-axi"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XxL-TX-mxd">
-                                <rect key="frame" x="51" y="623" width="141" height="65"/>
+                                <rect key="frame" x="118" y="530" width="141" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Shuffle">
@@ -99,7 +81,6 @@
                     </view>
                     <connections>
                         <outlet property="flipCountLabel" destination="Xi6-KD-BBo" id="33N-2a-B9A"/>
-                        <outlet property="scoreLabel" destination="DDe-r6-Gyt" id="xC2-Gr-7NC"/>
                         <outlet property="shuffleButton" destination="XxL-TX-mxd" id="ZAT-xk-Ycd"/>
                         <outletCollection property="cardButtons" destination="GdA-Vl-KO3" collectionClass="NSMutableArray" id="jQJ-WS-VXA"/>
                         <outletCollection property="cardButtons" destination="7sX-jd-XPf" collectionClass="NSMutableArray" id="FbH-ZO-38Y"/>

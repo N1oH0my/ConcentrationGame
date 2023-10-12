@@ -17,8 +17,6 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var scoreLabel: UILabel!
-
     @IBOutlet var shuffleButton: UIButton!
     
     @IBOutlet weak var flipCountLabel: UILabel!
@@ -55,46 +53,36 @@ class ViewController: UIViewController {
     }
     
     func updateViewFromModel(){
-            for index in cardButtons.indices {
-                let button = cardButtons[index]
-                let card = game.cards[index]
-                if card.isFaceUp {
-                    button.setTitle(getEmoji(for: card), for: UIControl.State.normal)
-                    button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                }
-                else{
-                    button.setTitle("", for: UIControl.State.normal)
-                    button.backgroundColor = card.isMatched ? #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 0):#colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
-            }
-            scoreLabel.text = "Score: \(game.score)"
-        }
-        
-        func viewDidLoad() {
-                super.viewDidLoad()
-        }
-        
-        
-        func flipCard(withEmoji emoji: String, on button: UIButton) {
-            print("flipCard(withEmoji: \(emoji))")
-            if button.currentTitle == emoji {
-                button.setTitle("", for: UIControl.State.normal)
-                button.backgroundColor = #colorLiteral(red: 1, green: 0.5029296378, blue: 0.1438817539, alpha: 1)
-            }
-            else{
-                button.setTitle(emoji, for: UIControl.State.normal)
+        for index in cardButtons.indices {
+            let button = cardButtons[index]
+            let card = game.cards[index]
+            if card.isFaceUp {
+                button.setTitle(getEmoji(for: card), for: UIControl.State.normal)
                 button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             }
+            else{
+                button.setTitle("", for: UIControl.State.normal)
+                button.backgroundColor = card.isMatched ? #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 0):#colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
         }
     }
     
-    @IBAction func startNewGame() {
-         game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2)
-         emojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵"]
-         emoji = [Int:String]()
-         flipCount = 0
-         updateViewFromModel()
+    func viewDidLoad() {
+            super.viewDidLoad()
     }
-
+    
+    
+    func flipCard(withEmoji emoji: String, on button: UIButton) {
+        print("flipCard(withEmoji: \(emoji))")
+        if button.currentTitle == emoji {
+            button.setTitle("", for: UIControl.State.normal)
+            button.backgroundColor = #colorLiteral(red: 1, green: 0.5029296378, blue: 0.1438817539, alpha: 1)
+        }
+        else{
+            button.setTitle(emoji, for: UIControl.State.normal)
+            button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        }
+    }
+    }
 }
 
 
