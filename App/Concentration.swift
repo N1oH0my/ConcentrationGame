@@ -17,6 +17,26 @@ class Concentration {
         else{
             cards[index].isFaceUp = true
         }
+        /*
+         
+        if !cards[index].isMatched {
+            if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
+                if cards[matchIndex].cardId == cards[index].cardId {
+                    cards[matchIndex].isMatched = true
+                    cards[index].isMatched = true
+                }
+                cards[index].isFaceUp = true
+                indexOfOneAndOnlyFaceUpCard = nil
+            }
+            
+        }
+        else{
+            for flipDownIndex in cards.indices {
+                cards[flipDownIndex].isFaceUp = false
+            }
+            cards[index].isFaceUp = true
+            indexOfOneAndOnlyFaceUpCard = index
+        }*/
     }
     
     init(numberOfPairsOfCards: Int) {
