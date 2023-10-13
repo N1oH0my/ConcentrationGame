@@ -9,9 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    lazy var game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2) // пока ее не используют она не инициализируется
+    private lazy var game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2) // пока ее не используют она не инициализируется
     
-    var flipCount = 0 {
+    private (set) var flipCount = 0 {
         didSet{
             flipCountLabel.text = "Flips: \(flipCount)"
         }
@@ -19,11 +19,11 @@ class ViewController: UIViewController {
     
     @IBOutlet var shuffleButton: UIButton!
     
-    @IBOutlet weak var flipCountLabel: UILabel!
+    @IBOutlet private weak var flipCountLabel: UILabel!
     
-    @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet private var cardButtons: [UIButton]!
     
-    @IBAction func touchSomeCard(_ sender: UIButton) {
+    @IBAction private func touchSomeCard(_ sender: UIButton) {
         flipCount += 1
         if let cardNumber = cardButtons.firstIndex(of: sender) {
             game.chooseCard(at: cardNumber)
@@ -34,14 +34,14 @@ class ViewController: UIViewController {
                 }
         
     }
-    @IBAction func shuffleCards() {
+    @IBAction private func shuffleCards() {
         game.shuffleCards()
         
         updateViewFromModel()
     }
-    var emojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵"]
-    var emoji = Dictionary<Int, String>()
-    func getEmoji(for card: Card)-> String
+    private var emojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵"]
+    private var emoji = Dictionary<Int, String>()
+    private func getEmoji(for card: Card)-> String
     {
         if emoji[card.cardId] == nil, emojis.count > 0{
             let randomIndex = Int(arc4random_uniform(UInt32(emojis.count)))
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         
     }
     
-    func updateViewFromModel(){
+    private func updateViewFromModel(){
         for index in cardButtons.indices {
             let button = cardButtons[index]
             let card = game.cards[index]

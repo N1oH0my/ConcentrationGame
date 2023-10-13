@@ -8,9 +8,9 @@
 import Foundation
 
 class Concentration {
-    var cards = [Card]()    // Array
+    private (set) var cards = [Card]()    // Array
     
-    var indexOfOneAndOnlyFaceUpCard: Int?{
+    private var indexOfOneAndOnlyFaceUpCard: Int?{
         get{
             var foundIndex: Int?
             for index in cards.indices {
