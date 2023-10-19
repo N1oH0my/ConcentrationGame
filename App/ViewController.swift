@@ -18,7 +18,9 @@ class ViewController: UIViewController {
     }
     
     @IBOutlet weak var scoreLabel: UILabel!
-
+    
+    @IBOutlet weak var helpButton: UIButton!
+    
     @IBOutlet var shuffleButton: UIButton!
     
     @IBOutlet weak var flipCountLabel: UILabel!
@@ -42,8 +44,9 @@ class ViewController: UIViewController {
         updateViewFromModel()
     }
     
+    var backupEmojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵", "☘️", "🍀", "🗿","🕸", "🍁", "🌼"]
     var emojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵", "☘️", "🍀", "🗿","🕸", "🍁", "🌼"]
-    var backgroundColor: UIColor = #colorLiteral(red: 1, green: 0.7529411765, blue: 0.4117647059, alpha: 1)
+    var backgroundColor: UIColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
     
     var emoji = Dictionary<Int, String>()
     func getEmoji(for card: Card)-> String
@@ -90,10 +93,41 @@ class ViewController: UIViewController {
         }
     }
     
+    var helpUsed = false
+
+    @IBAction func useHelpButton(_ sender: UIButton) {
+        if !helpUsed {
+            for index in cardButtons.indices {
+                let button = cardButtons[index]
+                let card = game.cards[index]
+                if !card.isMatched && !card.isFaceUp {
+                    UIView.transition(with: button, duration: 0.75, options: [.transitionFlipFromLeft], animations: {
+                        button.setTitle(self.getEmoji(for: card), for: UIControl.State.normal)
+                        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                    }, completion: { finished in
+                        if finished {
+                            UIView.transition(with: button, duration: 0.75, options: [.transitionFlipFromRight], animations: {
+                                button.setTitle("", for: UIControl.State.normal)
+                                button.backgroundColor = self.backgroundColor
+                            }, completion: nil)
+                        }
+                    })
+                }
+            }
+            helpUsed = true
+            helpButton.backgroundColor = UIColor.blue
+        }
+    }
+    
     @IBAction func startNewGame() {//доделать с настройками потом
          game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2)
+        if emojis.isEmpty {
+            emojis = backupEmojis
+        }
          emoji = [Int:String]()
          flipCount = 0
+        helpUsed = false
+        helpButton.backgroundColor = UIColor.white
          updateViewFromModel()
     }
 
@@ -114,9 +148,11 @@ class ViewController: UIViewController {
                 backgroundColor = newColor
         }
         func changeTheme(to newTheme: [String]) {
+            backupEmojis = newTheme
             emojis = newTheme
             startNewGame()
         }
+    
 }
 
 
