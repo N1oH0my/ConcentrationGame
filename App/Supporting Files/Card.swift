@@ -20,9 +20,7 @@ struct Card {
         factoryId += 1
         return Card.factoryId
     }
-    
     init() {
         self.cardId = Card.getUniqueId()
     }
-    
 }

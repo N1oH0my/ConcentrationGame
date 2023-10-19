@@ -58,9 +58,6 @@ class Concentration {
             
         }
     }
-
-
-    
     init(numberOfPairsOfCards: Int) {
         // ..< like (), ... like []
         for _ in 0..<numberOfPairsOfCards {

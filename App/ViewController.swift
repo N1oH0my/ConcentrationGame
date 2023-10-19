@@ -41,7 +41,7 @@ class ViewController: UIViewController {
         
         updateViewFromModel()
     }
-    var firstThemeEmojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵", "☘️", "🍀", "🗿","🕸", "🍁", "🌼"]
+    
     var emojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵", "☘️", "🍀", "🗿","🕸", "🍁", "🌼"]
     
     var emoji = Dictionary<Int, String>()
@@ -73,8 +73,8 @@ class ViewController: UIViewController {
         
         func viewDidLoad() {
                 super.viewDidLoad()
+            startNewGame()
         }
-        
         
         func flipCard(withEmoji emoji: String, on button: UIButton) {
             print("flipCard(withEmoji: \(emoji))")
@@ -91,12 +91,26 @@ class ViewController: UIViewController {
     
     @IBAction func startNewGame() {//доделать с настройками потом
          game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2)
-         emojis = firstThemeEmojis
          emoji = [Int:String]()
          flipCount = 0
          updateViewFromModel()
     }
 
+    @IBAction func openSettings() {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let settingsViewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else { return }
+            
+            settingsViewController.themeSelectionHandler = { [weak self] selectedTheme in
+                self?.changeTheme(to: selectedTheme)
+            }
+            
+            present(settingsViewController, animated: true)
+        }
+
+        func changeTheme(to newTheme: [String]) {
+            emojis = newTheme
+            startNewGame()
+        }
 }
 
 

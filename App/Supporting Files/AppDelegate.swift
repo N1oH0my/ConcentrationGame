@@ -11,11 +11,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
+    var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let settingsViewController = SettingsViewController()
+        let navigationController = UINavigationController(rootViewController: settingsViewController)
+        window = UIWindow(frame: UIScreen.main.bounds) // Создание окна приложения
+        window?.rootViewController = navigationController // Установка корневого контроллера
+        window?.makeKeyAndVisible() // Отображение окна
         return true
     }
+
 
     // MARK: UISceneSession Lifecycle
 
@@ -31,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    
 
 }
 
