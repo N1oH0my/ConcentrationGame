@@ -12,9 +12,10 @@ class SettingsViewController: UIViewController {
     var themeSelectionHandler: (([String]) -> Void)?
     
     
-    @IBOutlet weak var themeButton1: UIButton!
-    @IBOutlet weak var themeButton2: UIButton!
-    @IBOutlet weak var themeButton3: UIButton!
+    @IBOutlet weak var themeNatureButton: UIButton!
+    @IBOutlet weak var themeSpaceButton: UIButton!
+    @IBOutlet weak var themeFoodButton: UIButton!
+    @IBOutlet weak var randomThemeButton: UIButton!
 
     var theme: [String] = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵", "☘️", "🍀", "🗿","🕸", "🍁", "🌼"]
     
@@ -28,10 +29,10 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         
-        themeButton1.addTarget(self, action: #selector(themeButton1Tapped), for: .touchUpInside)
-        themeButton2.addTarget(self, action: #selector(themeButton2Tapped), for: .touchUpInside)
-        themeButton3.addTarget(self, action: #selector(themeButton3Tapped), for: .touchUpInside)
-
+        themeNatureButton.addTarget(self, action: #selector(themeButton1Tapped), for: .touchUpInside)
+        themeNatureButton.addTarget(self, action: #selector(themeButton2Tapped), for: .touchUpInside)
+        themeFoodButton.addTarget(self, action: #selector(themeButton3Tapped), for: .touchUpInside)
+        randomThemeButton.addTarget(self, action: #selector(randomThemeButtonTapped), for: .touchUpInside)
     }
 
     
@@ -57,6 +58,9 @@ class SettingsViewController: UIViewController {
     @objc func themeButton3Tapped() {
         theme = themes[2]
     }
-
+    @objc func randomThemeButtonTapped() {
+            let randomIndex = Int.random(in: 0..<themes.count)
+            theme = themes[randomIndex]
+        }
 }
 
