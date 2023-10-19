@@ -43,6 +43,7 @@ class ViewController: UIViewController {
     }
     
     var emojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵", "☘️", "🍀", "🗿","🕸", "🍁", "🌼"]
+    var backgroundColor: UIColor = #colorLiteral(red: 1, green: 0.7529411765, blue: 0.4117647059, alpha: 1)
     
     var emoji = Dictionary<Int, String>()
     func getEmoji(for card: Card)-> String
@@ -66,7 +67,7 @@ class ViewController: UIViewController {
                 }
                 else{
                     button.setTitle("", for: UIControl.State.normal)
-                    button.backgroundColor = card.isMatched ? #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 0):#colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+                    button.backgroundColor = card.isMatched ? #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 0):backgroundColor
             }
             scoreLabel.text = "Score: \(game.score)"
         }
@@ -80,7 +81,7 @@ class ViewController: UIViewController {
             print("flipCard(withEmoji: \(emoji))")
             if button.currentTitle == emoji {
                 button.setTitle("", for: UIControl.State.normal)
-                button.backgroundColor = #colorLiteral(red: 1, green: 0.5029296378, blue: 0.1438817539, alpha: 1)
+                button.backgroundColor = backgroundColor
             }
             else{
                 button.setTitle(emoji, for: UIControl.State.normal)
@@ -103,10 +104,15 @@ class ViewController: UIViewController {
             settingsViewController.themeSelectionHandler = { [weak self] selectedTheme in
                 self?.changeTheme(to: selectedTheme)
             }
+            settingsViewController.backgroundColorSelectionHandler = { [weak self] selectedColor in
+                    self?.changeBackgroundColor(to: selectedColor)
+            }
             
             present(settingsViewController, animated: true)
         }
-
+        func changeBackgroundColor(to newColor: UIColor) {
+                backgroundColor = newColor
+        }
         func changeTheme(to newTheme: [String]) {
             emojis = newTheme
             startNewGame()
