@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, SettingsDelegate  {
     
     lazy var game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2) // пока ее не используют она не инициализируется
     
@@ -44,23 +44,22 @@ class ViewController: UIViewController {
         updateViewFromModel()
     }
     
-    var backupEmojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵", "☘️", "🍀", "🗿","🕸", "🍁", "🌼"]
-    var emojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵", "☘️", "🍀", "🗿","🕸", "🍁", "🌼"]
-    var backgroundColor: UIColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
     
     var emoji = Dictionary<Int, String>()
     func getEmoji(for card: Card)-> String
     {
-        if emoji[card.cardId] == nil, emojis.count > 0{
-            let randomIndex = Int(arc4random_uniform(UInt32(emojis.count)))
-            emoji[card.cardId] = emojis.remove(at: randomIndex)
+        if emoji[card.cardId] == nil, GameSettings.shared.emojis.count > 0{
+            let randomIndex = Int(arc4random_uniform(UInt32(GameSettings.shared.emojis.count)))
+            emoji[card.cardId] = GameSettings.shared.emojis.remove(at: randomIndex)
         }
         
         return emoji[card.cardId] ?? "?"
         
     }
-    
-    func updateViewFromModel(){
+    func didChangeTheme() {
+            startNewGame()
+        }
+    @objc func updateViewFromModel(){
             for index in cardButtons.indices {
                 let button = cardButtons[index]
                 let card = game.cards[index]
@@ -70,21 +69,27 @@ class ViewController: UIViewController {
                 }
                 else{
                     button.setTitle("", for: UIControl.State.normal)
-                    button.backgroundColor = card.isMatched ? #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 0):backgroundColor
+                    button.backgroundColor = card.isMatched ? #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 0):GameSettings.shared.backgroundColor
             }
             scoreLabel.text = "Score: \(game.score)"
         }
         
         func viewDidLoad() {
-                super.viewDidLoad()
+            super.viewDidLoad()
+            NotificationCenter.default.addObserver(self, selector: #selector(startNewGame), name: Notification.Name("BackgroundColorChanged"), object: nil)
             startNewGame()
+            
+            /*NotificationCenter.default.addObserver(self, selector: #selector(updateViewFromModel), name: Notification.Name("EmojisChanged"), object: nil)*/
+            
+            
+                
         }
         
         func flipCard(withEmoji emoji: String, on button: UIButton) {
             print("flipCard(withEmoji: \(emoji))")
             if button.currentTitle == emoji {
                 button.setTitle("", for: UIControl.State.normal)
-                button.backgroundColor = backgroundColor
+                button.backgroundColor = GameSettings.shared.backgroundColor
             }
             else{
                 button.setTitle(emoji, for: UIControl.State.normal)
@@ -108,7 +113,7 @@ class ViewController: UIViewController {
                         if finished {
                             UIView.transition(with: button, duration: 0.75, options: [.transitionFlipFromRight], animations: {
                                 button.setTitle("", for: UIControl.State.normal)
-                                button.backgroundColor = self.backgroundColor
+                                button.backgroundColor = GameSettings.shared.backgroundColor
                             }, completion: nil)
                         }
                     })
@@ -121,9 +126,10 @@ class ViewController: UIViewController {
     
     @IBAction func startNewGame() {//доделать с настройками потом
          game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2)
-        if emojis.isEmpty {
-            emojis = backupEmojis
-        }
+        if GameSettings.shared.emojis.isEmpty {
+                    GameSettings.shared.emojis = GameSettings.shared.backupEmojis
+                }
+        
          emoji = [Int:String]()
          flipCount = 0
         helpUsed = false
@@ -131,28 +137,14 @@ class ViewController: UIViewController {
          updateViewFromModel()
     }
 
-    @IBAction func openSettings() {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            guard let settingsViewController = storyboard.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController else { return }
-            
-            settingsViewController.themeSelectionHandler = { [weak self] selectedTheme in
-                self?.changeTheme(to: selectedTheme)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if let settingsViewController = segue.destination as? SettingsViewController {
+                settingsViewController.delegate = self
             }
-            settingsViewController.backgroundColorSelectionHandler = { [weak self] selectedColor in
-                    self?.changeBackgroundColor(to: selectedColor)
-            }
-            
-            present(settingsViewController, animated: true)
         }
-        func changeBackgroundColor(to newColor: UIColor) {
-                backgroundColor = newColor
-        }
-        func changeTheme(to newTheme: [String]) {
-            backupEmojis = newTheme
-            emojis = newTheme
-            startNewGame()
-        }
+    }
+
     
-}
+
 
 

@@ -12,7 +12,7 @@
         <scene sceneID="i8p-Dj-ytA">
             <objects>
                 <viewController storyboardIdentifier="SettingsViewController" title="SettingsViewController" id="uMX-av-XQ0" customClass="SettingsViewController" customModule="App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="T0I-vB-yFz">
+                    <view key="view" contentMode="scaleToFill" restorationIdentifier="SettingsSegue" id="T0I-vB-yFz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -75,6 +75,7 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="uk9-LJ-ZQp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <accessibility key="accessibilityConfiguration" identifier="SettingsSegue"/>
                     </view>
                     <navigationItem key="navigationItem" id="zju-3u-nUo"/>
                     <connections>

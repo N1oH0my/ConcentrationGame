@@ -21,6 +21,6 @@ struct Card {
         return Card.factoryId
     }
     init() {
-        self.cardId = Card.getUniqueId()
+        self.cardId = Card.getUniqueId()-1
     }
 }

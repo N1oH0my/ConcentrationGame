@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class SettingsViewController: UIViewController {
+    weak var delegate: SettingsDelegate?
+    
     var themeSelectionHandler: (([String]) -> Void)?
     var backgroundColorSelectionHandler: ((UIColor) -> Void)?
     
@@ -50,9 +52,14 @@ class SettingsViewController: UIViewController {
     @IBAction func applyTheme() {
         let selectedTheme = theme
         let selectedBackgroundColor = backgroundColor
-        backgroundColorSelectionHandler?(selectedBackgroundColor)
-        themeSelectionHandler?(selectedTheme)
+        //backgroundColorSelectionHandler?(selectedBackgroundColor)
+        //themeSelectionHandler?(selectedTheme)
         
+        GameSettings.shared.emojis = selectedTheme
+        GameSettings.shared.backupEmojis = selectedTheme
+        GameSettings.shared.backgroundColor = selectedBackgroundColor
+        
+        delegate?.didChangeTheme()
         closeSettings()
     }
 
