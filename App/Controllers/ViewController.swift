@@ -31,7 +31,13 @@ class ViewController: UIViewController, SettingsDelegate  {
     }
     
     
-    @IBOutlet var cardButtons: [UIButton]!
+    @IBOutlet var cardButtons: [UIButton]!{
+        didSet{
+            for index in cardButtons.indices {
+                cardButtons[index].isHidden = true
+            }
+        }
+    }
     
     @IBAction func touchSomeCard(_ sender: UIButton) {
         flipCount += 1
@@ -92,8 +98,7 @@ class ViewController: UIViewController, SettingsDelegate  {
             NotificationCenter.default.addObserver(self, selector: #selector(startNewGame), name: Notification.Name("BackgroundColorChanged"), object: nil)
             navigationController?.isNavigationBarHidden = true
             
-            let difficultyLevel = GameSettings.shared.difficultyLevel
-            game = Concentration(difficultyLevel: difficultyLevel)
+            
             startNewGame()
             
             /*NotificationCenter.default.addObserver(self, selector: #selector(updateViewFromModel), name: Notification.Name("EmojisChanged"), object: nil)*/

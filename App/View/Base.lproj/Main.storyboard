@@ -138,7 +138,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="uk9-LJ-ZQp"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <accessibility key="accessibilityConfiguration" identifier="SettingsSegue"/>
                         <constraints>
                             <constraint firstItem="fZO-ri-cup" firstAttribute="top" relation="greaterThanOrEqual" secondItem="efX-iV-eEx" secondAttribute="bottom" constant="8" symbolic="YES" id="2ii-ux-Fre"/>
@@ -191,8 +191,8 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lQZ-yE-FXe">
-                                <rect key="frame" x="25" y="44" width="364" height="400"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="lQZ-yE-FXe">
+                                <rect key="frame" x="25" y="69" width="364" height="400"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="GNj-cA-KNe">
                                         <rect key="frame" x="0.0" y="0.0" width="364" height="60"/>
@@ -603,8 +603,8 @@
                             <constraint firstItem="CWq-RC-kdF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="03Z-Ha-7ac"/>
                             <constraint firstItem="Z4d-bF-RP7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="6Gk-tH-XrU"/>
                             <constraint firstItem="Z4d-bF-RP7" firstAttribute="top" relation="lessThanOrEqual" secondItem="CWq-RC-kdF" secondAttribute="bottom" constant="8" symbolic="YES" id="Ap7-No-vtA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="lQZ-yE-FXe" secondAttribute="top" constant="-25" id="Ka4-pp-KjK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lQZ-yE-FXe" secondAttribute="trailing" constant="25" id="Li4-H3-gt2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="lQZ-yE-FXe" secondAttribute="top" id="aGP-eq-uog"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CWq-RC-kdF" secondAttribute="trailing" constant="25" id="amk-kB-DhO"/>
                             <constraint firstItem="CWq-RC-kdF" firstAttribute="top" relation="greaterThanOrEqual" secondItem="lQZ-yE-FXe" secondAttribute="bottom" constant="8" symbolic="YES" id="fsd-fQ-z3W"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Z4d-bF-RP7" secondAttribute="bottom" constant="10" id="oP9-8z-IJ7"/>
