@@ -7,9 +7,38 @@
 
 import Foundation
 import UIKit
+enum DifficultyLevel {
+    case easy
+    case medium
+    case hard
+
+    var numberOfPairsOfCards: Int {
+        switch self {
+        case .easy:
+            return 4
+        case .medium:
+            return 6
+        case .hard:
+            return 12
+        }
+    }
+
+    var numberOfCardsToShow: Int {
+        switch self {
+        case .easy:
+            return 8
+        case .medium:
+            return 12
+        case .hard:
+            return 24
+        }
+    }
+}
 
 class GameSettings {
     static let shared = GameSettings()
+    
+    var difficultyLevel: DifficultyLevel = .easy
     
     var emojis = ["🍄", "🌿", "🤸🏻","🌱", "🎋", "🌵", "☘️", "🍀", "🗿","🕸", "🍁", "🌼"] {
         didSet {

@@ -8,8 +8,9 @@
 import UIKit
 
 class ViewController: UIViewController, SettingsDelegate  {
-    
-    lazy var game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2) // пока ее не используют она не инициализируется
+    let difficultyLevel = GameSettings.shared.difficultyLevel
+        
+    lazy var game = Concentration(difficultyLevel: difficultyLevel)
     
     var flipCount = 0 {
         didSet{
@@ -66,15 +67,22 @@ class ViewController: UIViewController, SettingsDelegate  {
         }
     @objc func updateViewFromModel(){
             for index in cardButtons.indices {
-                let button = cardButtons[index]
-                let card = game.cards[index]
-                if card.isFaceUp {
-                    button.setTitle(getEmoji(for: card), for: UIControl.State.normal)
-                    button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                if index<game.numberOfCardsToShow {
+                    cardButtons[index].isHidden = false
+                    let button = cardButtons[index]
+                    let card = game.cards[index]
+                    if card.isFaceUp {
+                        button.setTitle(getEmoji(for: card), for: UIControl.State.normal)
+                        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                    }
+                    else{
+                        button.setTitle("", for: UIControl.State.normal)
+                        button.backgroundColor = card.isMatched ? #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 0):GameSettings.shared.backgroundColor
                 }
-                else{
-                    button.setTitle("", for: UIControl.State.normal)
-                    button.backgroundColor = card.isMatched ? #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 0):GameSettings.shared.backgroundColor
+                
+            }
+            for index in game.numberOfCardsToShow..<cardButtons.count {
+                cardButtons[index].isHidden = true
             }
             scoreLabel.text = "Score: \(game.score)"
         }
@@ -84,6 +92,8 @@ class ViewController: UIViewController, SettingsDelegate  {
             NotificationCenter.default.addObserver(self, selector: #selector(startNewGame), name: Notification.Name("BackgroundColorChanged"), object: nil)
             navigationController?.isNavigationBarHidden = true
             
+            let difficultyLevel = GameSettings.shared.difficultyLevel
+            game = Concentration(difficultyLevel: difficultyLevel)
             startNewGame()
             
             /*NotificationCenter.default.addObserver(self, selector: #selector(updateViewFromModel), name: Notification.Name("EmojisChanged"), object: nil)*/
@@ -110,21 +120,24 @@ class ViewController: UIViewController, SettingsDelegate  {
     @IBAction func useHelpButton(_ sender: UIButton) {
         if !helpUsed {
             for index in cardButtons.indices {
-                let button = cardButtons[index]
-                let card = game.cards[index]
-                if !card.isMatched && !card.isFaceUp {
-                    UIView.transition(with: button, duration: 0.75, options: [.transitionFlipFromLeft], animations: {
-                        button.setTitle(self.getEmoji(for: card), for: UIControl.State.normal)
-                        button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-                    }, completion: { finished in
-                        if finished {
-                            UIView.transition(with: button, duration: 0.75, options: [.transitionFlipFromRight], animations: {
-                                button.setTitle("", for: UIControl.State.normal)
-                                button.backgroundColor = GameSettings.shared.backgroundColor
-                            }, completion: nil)
-                        }
-                    })
+                if index<game.numberOfCardsToShow {
+                    let button = cardButtons[index]
+                    let card = game.cards[index]
+                    if !card.isMatched && !card.isFaceUp {
+                        UIView.transition(with: button, duration: 0.75, options: [.transitionFlipFromLeft], animations: {
+                            button.setTitle(self.getEmoji(for: card), for: UIControl.State.normal)
+                            button.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+                        }, completion: { finished in
+                            if finished {
+                                UIView.transition(with: button, duration: 0.75, options: [.transitionFlipFromRight], animations: {
+                                    button.setTitle("", for: UIControl.State.normal)
+                                    button.backgroundColor = GameSettings.shared.backgroundColor
+                                }, completion: nil)
+                            }
+                        })
+                    }
                 }
+                
             }
             helpUsed = true
             helpButton.backgroundColor = UIColor.blue
@@ -132,7 +145,9 @@ class ViewController: UIViewController, SettingsDelegate  {
     }
     
     @IBAction func startNewGame() {//доделать с настройками потом
-         game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2)
+        let difficultyLevel = GameSettings.shared.difficultyLevel
+        game = Concentration(difficultyLevel: difficultyLevel)
+         //game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2)
         if GameSettings.shared.emojis.isEmpty {
                     GameSettings.shared.emojis = GameSettings.shared.backupEmojis
                 }

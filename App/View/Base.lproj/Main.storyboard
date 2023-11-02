@@ -110,18 +110,27 @@
                                                 <color key="backgroundColor" systemColor="systemGreenColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <state key="normal" title="easy"/>
+                                                <connections>
+                                                    <action selector="setEasyDifficulty:" destination="uMX-av-XQ0" eventType="touchUpInside" id="xkp-9Y-YJG"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rPD-ZX-YMg">
                                                 <rect key="frame" x="113" y="0.0" width="105" height="48"/>
                                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <state key="normal" title="medium"/>
+                                                <connections>
+                                                    <action selector="setMediumDifficulty:" destination="uMX-av-XQ0" eventType="touchUpInside" id="hs9-U7-dm9"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NT3-3X-qT5">
                                                 <rect key="frame" x="226" y="0.0" width="105" height="48"/>
                                                 <color key="backgroundColor" systemColor="systemRedColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                 <state key="normal" title="hard"/>
+                                                <connections>
+                                                    <action selector="setHardDifficulty:" destination="uMX-av-XQ0" eventType="touchUpInside" id="Q53-qt-xVy"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>

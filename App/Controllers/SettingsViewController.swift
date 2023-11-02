@@ -33,7 +33,22 @@ class SettingsViewController: UIViewController {
         #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1),
         #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
     ]
-    
+   
+
+        @IBAction func setEasyDifficulty(_ sender: UIButton) {
+            GameSettings.shared.difficultyLevel = .easy
+            //navigationController?.popViewController(animated: true)
+        }
+
+        @IBAction func setMediumDifficulty(_ sender: UIButton) {
+            GameSettings.shared.difficultyLevel = .medium
+            //navigationController?.popViewController(animated: true)
+        }
+
+        @IBAction func setHardDifficulty(_ sender: UIButton) {
+            GameSettings.shared.difficultyLevel = .hard
+            //navigationController?.popViewController(animated: true)
+        }
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -8,6 +8,7 @@
 import Foundation
 
 class Concentration {
+    var numberOfCardsToShow: Int = 8
     var cards = [Card]()    // Array
     
     var score = 0
@@ -58,7 +59,7 @@ class Concentration {
             
         }
     }
-    init(numberOfPairsOfCards: Int) {
+    /*init(numberOfPairsOfCards: Int) {
         // ..< like (), ... like []
         for _ in 0..<numberOfPairsOfCards {
             let card = Card()
@@ -68,10 +69,23 @@ class Concentration {
         shuffleCards()
         score = 0;
         
-    }
+    }*/
+    
     func shuffleCards()
     {
         cards.shuffle()
+    }
+    init(difficultyLevel: DifficultyLevel) {
+        let numberOfPairsOfCards = difficultyLevel.numberOfPairsOfCards
+        for _ in 0..<numberOfPairsOfCards {
+            let card = Card()
+            cards += [card, card]
+        }
+
+        shuffleCards()
+        score = 0
+
+        numberOfCardsToShow = difficultyLevel.numberOfCardsToShow
     }
     func resetScore()
     {
