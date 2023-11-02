@@ -43,6 +43,16 @@ class SettingsViewController: UIViewController {
         themeFoodButton.addTarget(self, action: #selector(themeButton3Tapped), for: .touchUpInside)
         randomThemeButton.addTarget(self, action: #selector(randomThemeButtonTapped), for: .touchUpInside)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
 
     
     @IBAction func closeSettings() {
@@ -52,8 +62,7 @@ class SettingsViewController: UIViewController {
     @IBAction func applyTheme() {
         let selectedTheme = theme
         let selectedBackgroundColor = backgroundColor
-        //backgroundColorSelectionHandler?(selectedBackgroundColor)
-        //themeSelectionHandler?(selectedTheme)
+    
         
         GameSettings.shared.emojis = selectedTheme
         GameSettings.shared.backupEmojis = selectedTheme

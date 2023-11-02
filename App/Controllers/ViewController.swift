@@ -23,7 +23,12 @@ class ViewController: UIViewController, SettingsDelegate  {
     
     @IBOutlet var shuffleButton: UIButton!
     
-    @IBOutlet weak var flipCountLabel: UILabel!
+    @IBOutlet weak var flipCountLabel: UILabel!{
+        didSet{
+            navigationController?.isNavigationBarHidden = true
+        }
+    }
+    
     
     @IBOutlet var cardButtons: [UIButton]!
     
@@ -77,14 +82,16 @@ class ViewController: UIViewController, SettingsDelegate  {
         func viewDidLoad() {
             super.viewDidLoad()
             NotificationCenter.default.addObserver(self, selector: #selector(startNewGame), name: Notification.Name("BackgroundColorChanged"), object: nil)
+            navigationController?.isNavigationBarHidden = true
+            
             startNewGame()
             
             /*NotificationCenter.default.addObserver(self, selector: #selector(updateViewFromModel), name: Notification.Name("EmojisChanged"), object: nil)*/
-            
-            
                 
         }
         
+        
+
         func flipCard(withEmoji emoji: String, on button: UIButton) {
             print("flipCard(withEmoji: \(emoji))")
             if button.currentTitle == emoji {
