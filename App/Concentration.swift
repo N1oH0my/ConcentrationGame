@@ -7,59 +7,46 @@
 
 import Foundation
 
-class Concentration {
-    var cards = [Card]()    // Array
+struct Concentration {
+    private (set) var cards = [Card]()    // Array
     
-    var score = 0
-        
-        var indexOfTheOneAndOnlyFaceUpCard: Int? {
-            get {
-                return cards.indices.filter { cards[$0].isFaceUp }.oneAndOnly
-            }
-            set {
-                for index in cards.indices {
-                    cards[index].isFaceUp = (index == newValue)
-                }
-            }
+    private var indexOfOneAndOnlyFaceUpCard: Int?{
+        get{
+            return cards.indices.filter { (cards[$0].isFaceUp) }.oneAndOnly
         }
-        
-    func chooseCard(at index: Int) {
-        if cards[index].isMatched {
-            return
-        }
-        
-        if cards[index].isFaceUp {
-            cards[index].isFaceUp = false
-        } else {
-            if let matchingIndex = indexOfTheOneAndOnlyFaceUpCard {
-                if matchingIndex != index {
-                    if cards[matchingIndex].cardId == cards[index].cardId {
-                        cards[matchingIndex].isMatched = true
-                        cards[index].isMatched = true
-                        cards[matchingIndex].isFaceUp = false
-                        cards[index].isFaceUp = false
-                        score += 1
-                    }
-                    else{
-                        score -= 2
-                    }
-                }
-                indexOfTheOneAndOnlyFaceUpCard = nil
-            } else {
-                for flipDownIndex in cards.indices {
-                    cards[flipDownIndex].isFaceUp = false
-                }
+        set{
+            for index in cards.indices {
+                cards[index].isFaceUp = (index == newValue)
             }
-            if !cards[index].isMatched  {
-                cards[index].isFaceUp = true
-                indexOfTheOneAndOnlyFaceUpCard = index
-            }
-            
-            
         }
     }
-
-
+    
+    mutating func chooseCard(at index: Int) {
+        /*
+        if cards[index].isFaceUp {
+            cards[index].isFaceUp = false
+        }
+        else{
+            cards[index].isFaceUp = true
+        }*/
+        /**/
+        assert(cards.indices.contains(index), "Concentration.chooseCard(\(index)): wrong index!")
+        if !cards[index].isMatched {
+            
+            if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index {
+                if cards[matchIndex] == cards[index]{
+                    cards[matchIndex].isMatched = true
+                    cards[index].isMatched = true
+                }
+                cards[index].isFaceUp = true
+            }
+            else{
+                indexOfOneAndOnlyFaceUpCard = index
+            }
+            
+        }
+        
+    }
     
     init(numberOfPairsOfCards: Int) {
         // ..< like (), ... like []
@@ -69,20 +56,16 @@ class Concentration {
         }
         
         shuffleCards()
-        score = 0;
         
     }
-    func shuffleCards()
+    mutating func shuffleCards()
     {
         cards.shuffle()
     }
-    func resetScore()
-    {
-        score = 0;
-    }
 }
-extension Collection {
-    var oneAndOnly: Element? {
+
+extension Collection{
+    var oneAndOnly: Element?{
         return count == 1 ? first : nil
     }
 }

@@ -7,16 +7,27 @@
 
 import Foundation
 
-struct Card {
-    var cardId: Int
+struct Card: Hashable {
+    var hashValue: Int{
+        get{
+            return cardId
+        }
+    }
+    
+    static func ==(lhs: Card, rhs:Card)->Bool
+    {
+        return lhs.cardId == rhs.cardId
+    }
+    
+    private var cardId: Int
     
     var isFaceUp = false
     
     var isMatched = false
     
-    static var factoryId = 0
+    private static var factoryId = 0
     
-    static func getUniqueId() -> Int{
+    private static func getUniqueId() -> Int{
         factoryId += 1
         return Card.factoryId
     }
